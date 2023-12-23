@@ -27,3 +27,4 @@ jobs:
         run: |
           cargo build --release
           cargo r --release
+        working-directory: ./sign-in
