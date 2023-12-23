@@ -1,6 +1,7 @@
 use std::env;
 
 use anyhow::{Context, Result};
+use colored::Colorize;
 use dotenv::dotenv;
 use once_cell::sync::Lazy;
 use reqwest::header::{HeaderMap, HeaderValue, COOKIE};
@@ -23,11 +24,11 @@ pub static HEADERS: Lazy<RwLock<HeaderMap>> = Lazy::new(|| RwLock::new(HeaderMap
 
 /// 初始化配置
 pub async fn init() -> Result<()> {
-    dotenv()?;
+    dotenv().ok();
 
     let bduss_value = env::var("BDUSS")?;
-    let value =
-        HeaderValue::from_str(format!("BDUSS={}", bduss_value).as_str()).context("Cookie error")?;
+    let value = HeaderValue::from_str(format!("BDUSS={}", bduss_value).as_str())
+        .context("Cookie 错误".red())?;
 
     let mut headers = HEADERS.write().await;
     headers.insert(COOKIE, value);

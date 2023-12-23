@@ -12,19 +12,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
-          override: true
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v1
 
       - name: Build and Run
         env:
           BDUSS: ${{ secrets.BDUSS }}
         run: |
           cargo build --release
-          cargo r --release
-        working-directory: ./sign-in
+          cargo run --release

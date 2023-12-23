@@ -137,13 +137,14 @@ impl TiebaSignInClient {
                         .json()
                         .await?;
 
-                    code = match res["error_code"].as_i64() {
-                        Some(0) => {
+                    code = match res["error_code"].as_str() {
+                        Some("0") => {
                             info!("{}: 签到成功", name.as_str());
                             true
                         }
                         _ => {
                             warn!("{}: 签到失败", name.as_str());
+                            println!("{res:?}");
                             false
                         }
                     };
