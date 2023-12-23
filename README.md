@@ -1,6 +1,6 @@
-<div style="text-align: center;">
-  <h1>签到工具</h1>
-  <p>
+<div align="center">
+  <h1 align="center">签到工具</h1>
+  <p align="center">
     <a href="https://github.com/KiritanTakechi/sign-in">
       <img alt="Watchers" src="https://img.shields.io/github/watchers/KiritanTakechi/sign-in?style=for-the-badge&logo=github&color=ff69b4&logoColor=fff&labelColor=333"></a>
     <a href="https://github.com/KiritanTakechi/sign-in/issues">
