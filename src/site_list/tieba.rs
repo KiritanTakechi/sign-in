@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use anyhow::{anyhow, Context, Result};
+use colored::Colorize;
 use log::{info, warn};
 use md5::{Digest, Md5};
 use rayon::iter::{
@@ -52,10 +53,10 @@ impl TiebaSignInClient {
         let data: Value = client
             .get(URL.tbs_url.as_str())
             .await
-            .context("请求发送失败")?
+            .context("请求发送失败".red())?
             .json()
             .await
-            .context("Json数据解析失败")?;
+            .context("Json数据解析失败".red())?;
 
         let tbs = data["is_login"]
             .as_i64()
@@ -67,7 +68,7 @@ impl TiebaSignInClient {
                 }
             })
             .map(String::from)
-            .ok_or_else(|| anyhow!("TBS获取失败"))?;
+            .ok_or_else(|| anyhow!("TBS获取失败".red()))?;
 
         Ok(tbs)
     }
@@ -79,14 +80,14 @@ impl TiebaSignInClient {
         let data: Value = client
             .get(URL.like_url.as_str())
             .await
-            .context("请求发送失败")?
+            .context("请求发送失败".red())?
             .json()
             .await
-            .context("Json数据解析失败")?;
+            .context("Json数据解析失败".red())?;
 
         let following_list = data["data"]["like_forum"]
             .as_array()
-            .ok_or_else(|| anyhow!("关注列表解析失败"))?;
+            .ok_or_else(|| anyhow!("关注列表解析失败".red()))?;
 
         let (present, absent): (Vec<_>, Vec<_>) = following_list
             .into_par_iter()
