@@ -13,7 +13,7 @@
 </div>
 
 # 介绍
-本项目收到[贴吧签到助手](https://github.com/TouhouAsia/TiebaSignIn-1)的启发，开发了Rust版本
+本项目收到[贴吧签到助手](https://github.com/LuoSue/TiebaSignIn-1)的启发，开发了Rust版本
 
 # 功能
 +  贴吧签到 (每天早上`6:30`将会自动进行签到)
