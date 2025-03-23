@@ -4,7 +4,7 @@ use anyhow::{Context, Result};
 use colored::Colorize;
 use dotenv::dotenv;
 use once_cell::sync::Lazy;
-use reqwest::header::{HeaderMap, HeaderValue, COOKIE};
+use reqwest::header::{COOKIE, HeaderMap, HeaderValue};
 use tokio::sync::RwLock;
 
 #[derive(Debug)]
@@ -32,6 +32,17 @@ pub async fn init() -> Result<()> {
 
     let mut headers = HEADERS.write().await;
     headers.insert(COOKIE, value);
+    headers.insert("User-Agent", HeaderValue::from_static("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"));
+    headers.insert(
+        "Referer",
+        HeaderValue::from_static("http://tieba.baidu.com/"),
+    );
+    headers.insert("connection", HeaderValue::from_static("keep-alive"));
+    headers.insert(
+        "Content-Type",
+        HeaderValue::from_static("application/x-www-form-urlencoded"),
+    );
+    headers.insert("charset", HeaderValue::from_static("UTF-8"));
 
     Ok(())
 }

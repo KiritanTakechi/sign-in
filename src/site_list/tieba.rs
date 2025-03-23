@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result, anyhow};
 use colored::Colorize;
 use log::{info, warn};
 use md5::{Digest, Md5};
@@ -11,7 +11,7 @@ use serde_json::Value;
 use tokio::sync::RwLock;
 
 use crate::{
-    client::{SignInClient, CLIENT},
+    client::{CLIENT, SignInClient},
     config::URL,
 };
 
@@ -130,7 +130,7 @@ impl TiebaSignInClient {
                 let mut attempt = 0;
 
                 while !code && attempt < MAX_ATTEMPTS {
-                    let body = format!("kw={}&tbs={}&sign={}", name, tbs, sign);
+                    let body = format!("kw={}&tbs={}&sign={}", name.replace("+", "%2B"), tbs, sign);
 
                     let res: Value = client
                         .post(&URL.sign_url, body.as_str())
